@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<h1>Project Details</h1>
+
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">{{ project.name }}</span>
+    <p>Hardware: {{ project.hardware }}</p>
+    <br>
+    <p>Description: {{ project.description }}</p>
+    <br>
+    <p>Language Used: {{ project.language }}</p>
+  </div>
+</div>
+
+{% endblock %}
