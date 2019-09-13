@@ -18,8 +18,9 @@ def projects_index(request):
 
 def projects_detail(request, project_id):
     project = Project.objects.get(id=project_id)
+    components_project_doesnt_have = Component.objects.exclude(id__in = project.components.all().values_list('id'))
     progress_form = ProgressForm()
-    return render(request, 'projects/detail.html', { 'project': project, 'progress_form': progress_form })
+    return render(request, 'projects/detail.html', { 'project': project, 'progress_form': progress_form, 'components': components_project_doesnt_have })
 
 def add_progress(request, project_id):
     form = ProgressForm(request.POST)
@@ -27,6 +28,10 @@ def add_progress(request, project_id):
         new_progress = form.save(commit=False)
         new_progress.project_id = project_id
         new_progress.save()
+    return redirect('detail', project_id=project_id)
+
+def assoc_component(request, project_id, component_id):
+    Project.objects.get(id=project_id).components.add(component_id)
     return redirect('detail', project_id=project_id)
 
 

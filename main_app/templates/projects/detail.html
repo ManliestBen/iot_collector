@@ -61,6 +61,31 @@
     {% endif %}
   </div>
   <!-- Available toys will come after this line -->
+    </div>
+  <!-- Available toys will come after this line -->
+  <div class="col s6">
+    <h3>Available Components</h3>
+    {% if components.count %}
+      {% for component in components.all %}
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">
+            $<span>{{ component.cost }}</span> 
+            <br>{{ component.name }}
+            </span>
+          </div>
+          <div class="card-action">
+            <form action="{% url 'assoc_component' project.id component.id %}" method="post">
+              {% csrf_token %}
+              <button type="submit" class="btn">Add</button>
+            </form>
+          </div>
+        </div>
+      {% endfor %}
+    {% else %}
+      <h5>{{project.name}} Already Has All Components Available</h5>
+    {% endif %}
+  </div>
 </div>
 <script>
   var dateEl = document.getElementById('id_date');
