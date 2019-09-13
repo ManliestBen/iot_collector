@@ -1,5 +1,17 @@
 from django.db import models
 from django.urls import reverse
+from datetime import date
+
+class Component(models.Model):
+  name = models.CharField(max_length=50)
+  cost = models.FloatField()
+
+  def __str__(self):
+    return self.name
+
+  def get_absolute_url(self):
+    return reverse('components_detail', kwargs={'pk': self.id})
+
 class Project(models.Model):
     name = models.CharField(max_length=100)
     hardware = models.CharField(max_length=100)

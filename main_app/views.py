@@ -1,7 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
-from .models import Project
+from django.views.generic import ListView, DetailView
+from .models import Project, Component
 from .forms import ProgressForm
 
 def home(request):
@@ -41,3 +42,21 @@ class ProjectUpdate(UpdateView):
 class ProjectDelete(DeleteView):
   model = Project
   success_url = '/projects/'
+
+class ComponentList(ListView):
+  model = Component
+
+class ComponentDetail(DetailView):
+  model = Component
+
+class ComponentCreate(CreateView):
+  model = Component
+  fields = '__all__'
+
+class ComponentUpdate(UpdateView):
+  model = Component
+  fields = ['name', 'cost']
+
+class ComponentDelete(DeleteView):
+  model = Component
+  success_url = '/toys/'
