@@ -17,6 +17,7 @@ class Project(models.Model):
     hardware = models.CharField(max_length=100)
     description = models.TextField(max_length=250)
     language = models.CharField(max_length=100)
+    components = models.ManyToManyField(Component)
     
 
     def __str__(self):
