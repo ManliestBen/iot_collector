@@ -3,19 +3,38 @@
 
 <h1>Project Details</h1>
 
-<div class="card">
-  <div class="card-content">
-    <span class="card-title">{{ project.name }}</span>
-    <p>Hardware: {{ project.hardware }}</p>
-    <br>
-    <p>Description: {{ project.description }}</p>
-    <br>
-    <p>Language Used: {{ project.language }}</p>
+<div class="row">
+  <div class="col s6">
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">{{ project.name }}</span>
+        <p>Hardware {{ project.hardware }}</p>
+        <br>
+        <p>Description: {{ project.description }}</p>
+        <br>
+        <p>Language Used: {{ project.language }}</p>
+        
+      </div>
+      <div class="card-action">
+        <a href="{% url 'projects_update' project.id %}">Edit</a>
+        <a href="{% url 'projects_delete' project.id %}">Delete</a>
+      </div>
+    </div>
   </div>
-    <div class="card-action">
-    <a href="{% url 'projects_update' project.id %}">Edit</a>
-    <a href="{% url 'projects_delete' project.id %}">Delete</a>
+  <div class="col s6">
+    <table class="striped">
+      <thead>
+        <tr><th>Date</th><th>Note</th></tr>
+      </thead>
+      <tbody>
+        {% for progress in project.progress_set.all %}
+          <tr>
+            <td>{{progress.date}}</td>
+            <td>{{progress.note}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
   </div>
 </div>
-
 {% endblock %}
