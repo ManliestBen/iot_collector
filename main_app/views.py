@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Project
+from .forms import ProgressForm
 
 def home(request):
     return render(request, 'projects/index.html')
@@ -15,8 +16,18 @@ def projects_index(request):
 # Create your views here.
 
 def projects_detail(request, project_id):
-  project = Project.objects.get(id=project_id)
-  return render(request, 'projects/detail.html', { 'project': project })
+    project = Project.objects.get(id=project_id)
+    progress_form = ProgressForm()
+    return render(request, 'projects/detail.html', { 'project': project, 'progress_form': progress_form })
+
+def add_progress(request, project_id):
+    form = ProgressForm(request.POST)
+    if form.is_valid():
+        new_progress = form.save(commit=False)
+        new_progress.project_id = project_id
+        new_progress.save()
+    return redirect('detail', project_id=project_id)
+
 
 class ProjectCreate(CreateView):
     model = Project

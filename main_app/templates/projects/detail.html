@@ -22,6 +22,11 @@
     </div>
   </div>
   <div class="col s6">
+    <form action="{% url 'add_progress' project.id %}" method="post">
+    {% csrf_token %}
+    {{ progress_form.as_p }}
+    <input type="submit" class="btn" value="Add Progress">
+  </form>
     <table class="striped">
       <thead>
         <tr><th>Date</th><th>Note</th></tr>
@@ -37,4 +42,15 @@
     </table>
   </div>
 </div>
+<script>
+  var dateEl = document.getElementById('id_date');
+  M.Datepicker.init(dateEl, {
+    format: 'yyyy-mm-dd',
+    defaultDate: new Date(),
+    setDefaultDate: true,
+    autoClose: true
+  });
+  var selectEl = document.getElementById('id_meal');
+  M.FormSelect.init(selectEl);
+</script>
 {% endblock %}
