@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.http import HttpResponse
-from django.views.generic.edit import CreateView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from .models import Project
 
 def home(request):
@@ -22,3 +22,11 @@ class ProjectCreate(CreateView):
     model = Project
     fields = '__all__'
     success_url = '/projects/'
+
+class ProjectUpdate(UpdateView):
+  model = Project
+  fields = '__all__'
+
+class ProjectDelete(DeleteView):
+  model = Project
+  success_url = '/projects/'
